@@ -106,12 +106,6 @@
         "tab": "API Reference",
         "groups": [
           {
-            "group": "API Documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
             "group": "Polar",
             "pages": [
               "Foundations",
@@ -126,18 +120,21 @@
           },
           {
             "group": "Client SDKs",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
+            "openapi":{ 
+              "source": "./api-reference/openapi.json",
+              "directory": "api-reference"
+            }
           }
         ]
       }
     ],
     "global": {
       "anchors": [
+        {
+          "anchor": "Log in / Sign up",
+          "href": "https://ui.osohq.com/",
+          "icon": "user"
+        },
         {
           "anchor": "Blog",
           "href": "https://osohq.com/blog",
@@ -147,11 +144,6 @@
           "anchor": "Slack",
           "href": "https://join-slack.osohq.com/?_gl=1*1p3trmq*_gcl_au*MTQ1Njk1NTkwNC4xNzQ4NTYzMjYy",
           "icon": "slack"
-        },
-        {
-          "anchor": "OsoHQ",
-          "href": "https://osohq.com",
-          "icon": "arrow-left"
         }
       ]
     }
@@ -165,6 +157,14 @@
       {
         "label": "Status Page",
         "href": "https://oso.statuspage.io/"
+      },
+      {
+        "label": "Authorization Academy",
+        "href": "https://www.osohq.com/academy"
+      },
+      {
+        "label": "Meet an Eng",
+        "href": "https://www.osohq.com/meet-oso"
       }
     ]
   },
