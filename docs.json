@@ -16,8 +16,8 @@
           {
             "group": "Get Started",
             "pages": [
-              "introduction",
-              "quickstart"
+              "get-started/introduction",
+              "get-started/quickstart"
             ]
           },
           {
@@ -26,34 +26,35 @@
               {
                 "group": "Write policies",
                 "pages": [
-                  "essentials/markdown",
-                  "essentials/code",
-                  "essentials/images",
-                  "essentials/settings",
-                  "essentials/navigation",
-                  "essentials/reusable-snippets"
+                  "core-concepts/policies/overview",
+                  "core-concepts/policies/rbac",
+                  "core-concepts/policies/rebac",
+                  "core-concepts/policies/abac",
+                  "core-concepts/policies/fga"
                 ]
               },
               {
                 "group": "Manage facts",
                 "pages": [
-                  "essentials/markdown",
-                  "essentials/code",
-                  "essentials/images",
-                  "essentials/settings",
-                  "essentials/navigation",
-                  "essentials/reusable-snippets"
+                  {
+                    "group": "Centralize in Oso Cloud",
+                    "pages": [
+                      "core-concepts/facts/overview",
+                      "core-concepts/facts/sync",
+                      "core-concepts/facts/export",
+                      "core-concepts/facts/migrate"
+                    ]
+                  },
+                  "core-concepts/facts/local-authorization",
+                  "core-concepts/facts/context-facts"
                 ]
               },
               {
                 "group": "Enforce permissions",
                 "pages": [
-                  "essentials/markdown",
-                  "essentials/code",
-                  "essentials/images",
-                  "essentials/settings",
-                  "essentials/navigation",
-                  "essentials/reusable-snippets"
+                  "core-concepts/enforce/enforcement-strategies",
+                  "core-concepts/enforce/query-facts",
+                  "core-concepts/enforce/list-filtering"
                 ]
               }
 
@@ -62,12 +63,41 @@
           {
             "group": "Develop and Deploy",
             "pages": [
-              "Local development",
-              "Testing",
-              "Integration",
-              "Deployment models",
-              "CI + CD",
-              "Troubleshooting"
+              {
+                "group": "Local development",
+                "pages": [
+                  "develop/local-development/env-setup",
+                  "develop/local-development/oso-dev-server",
+                  "develop/local-development/oso-migrate"
+                ]
+              },
+              "develop/testing",
+              "develop/ci-cd",
+              {
+                "group": "Deployment models",
+                "pages": [
+                  "develop/deployment-models/cloud",
+                  "develop/deployment-models/hybrid",
+                  "develop/deployment-models/self-hosted"
+                ]
+              },
+              "develop/migrations",
+              "develop/audit-logs",
+              {
+                "group": "Changelog",
+                "pages": [
+                  "develop/changelog/cli",
+                  "develop/changelog/node",
+                  "develop/changelog/python",
+                  "develop/changelog/go",
+                  "develop/changelog/ruby",
+                  "develop/changelog/java",
+                  "develop/changelog/dotnet",
+                  "develop/changelog/oso-dev-server",
+                  "develop/changelog/fallback-node",
+                  "develop/changelog/vscode-extension"
+                ]
+              }
             ]
           }
         ]
@@ -79,6 +109,19 @@
             "group": "API Documentation",
             "pages": [
               "api-reference/introduction"
+            ]
+          },
+          {
+            "group": "Polar",
+            "pages": [
+              "Foundations",
+              "Types",
+              "Rules and facts",
+              "Operators",
+              "Constants",
+              "Resource blocks",
+              "Tests",
+              "Extends"
             ]
           },
           {
