@@ -24,7 +24,7 @@
             "group": "Core Concepts",
             "pages": [
               {
-                "group": "Policies",
+                "group": "Write policies",
                 "pages": [
                   "essentials/markdown",
                   "essentials/code",
@@ -35,7 +35,7 @@
                 ]
               },
               {
-                "group": "Facts",
+                "group": "Manage facts",
                 "pages": [
                   "essentials/markdown",
                   "essentials/code",
@@ -46,7 +46,7 @@
                 ]
               },
               {
-                "group": "Enforcement",
+                "group": "Enforce permissions",
                 "pages": [
                   "essentials/markdown",
                   "essentials/code",

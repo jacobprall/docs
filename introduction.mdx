@@ -4,13 +4,13 @@ sidebarTitle: "Introduction"
 ---
 
 ## What is Oso Cloud?
-Oso Cloud is an Authorization-as-a-Service platform. It centralizes your authorization logic and exposes APIs for answering authorization questions. You call it from your application code when you need to authorize a request.
+Oso Cloud is an authorization-as-a-service designed for microservices and complex applications. It centralizes your authorization logic and exposes APIs for answering authorization questions.
 
 ## How it works
 
-1. **Define** your authorization policies in [Polar](#), our DSL for expressing permissions logic
-2. **Store** your policies and authorization data in Oso Cloud
-3. **Make API calls** from your app when you need to answer an authorization question
+1. **Define** authorization policies in [Polar](#), our DSL for expressing permissions logic
+2. **Store** policies and authorization data in Oso Cloud
+3. **Make API calls** from your app when you need to answer authorization questions, like `can user X view Z resource?` or `what resources can user X edit?`
 
 ## Writing policies in Polar
 Oso Cloud's policy language, Polar, is designed for expressing arbitrarily complex and granular application authorization logic. 
@@ -38,7 +38,7 @@ There are multiple ways to **provide facts to Oso Cloud**. Which one you choose 
 
 
 ## Evaluating authorization requests
-Oso Cloud can be configured to return booleans, a list of resources, a list of permissions, or even database logic that can be used to complete an authorization decision.
+Oso Cloud can return booleans, a list of resources, a list of permissions, or even database logic that can be used to complete an authorization decision.
 
 It all depends on your unique application requirements.
 
