@@ -1,0 +1,110 @@
+---
+# Basic page metadata
+title: "Complete Guide to Advanced API Documentation Features"
+description: "A comprehensive overview of all advanced features available for creating exceptional API documentation, including interactive playgrounds, custom layouts, and SEO optimization."
+
+# Navigation customization
+sidebarTitle: "Advanced Features"
+
+# Icon configuration (Font Awesome or Lucide)
+icon: "rocket"
+iconType: "solid"
+
+# Page labeling
+tag: "NEW"
+
+# API playground configuration (for API pages)
+openapi: "GET /api/v1/users"
+
+# Page layout mode options:
+# - "wide": Hides table of contents for more horizontal space
+# - "custom": Minimalist layout with only top bar
+# - "center": Centers content, removes sidebar and ToC
+# - Default: Standard layout with sidebar and ToC
+mode: "wide"
+
+# External link configuration (makes sidebar item open external URL)
+# url: "https://www.example.com"
+
+# SEO and social media optimization
+"og:title": "Advanced API Documentation Features"
+"og:description": "Learn how to create powerful API documentation with interactive features"
+"og:image": "/images/api-documentation-preview.jpg"
+"twitter:card": "summary_large_image"
+"twitter:title": "Advanced API Documentation Features"
+"twitter:description": "Complete guide to building exceptional API docs"
+"twitter:image": "/images/api-documentation-preview.jpg"
+
+# Internal search optimization
+keywords: ['api', 'documentation', 'playground', 'interactive', 'endpoints', 'swagger', 'openapi', 'guides', 'tutorials']
+---
+
+# Welcome to Advanced API Documentation
+
+This page demonstrates every possible configuration option available in Mintlify .mdx files.
+
+## Configuration Overview
+
+The frontmatter above showcases:
+
+### Basic Metadata
+- **Title**: The main page title displayed as the h1 heading
+- **Description**: Summary text shown under the title
+- **Sidebar Title**: Shorter title for navigation (useful for long titles)
+
+### Visual Customization
+- **Icon**: Uses Font Awesome or Lucide icons in the sidebar
+- **Icon Type**: Specifies Font Awesome icon style (solid, regular, light, etc.)
+- **Tag**: Adds labels next to page titles in sidebar
+
+### Layout Modes
+- **Default**: Standard layout with sidebar and table of contents
+- **Wide**: Hides ToC for more horizontal space
+- **Custom**: Minimalist layout with only the top bar
+- **Center**: Centers content, removes sidebar and ToC
+
+### API Integration
+- **OpenAPI**: Creates interactive API playground from OpenAPI specification
+- **API**: Alternative to openapi for API endpoint documentation
+
+### External Integration
+- **URL**: Makes sidebar item link to external websites
+- **SEO Tags**: Social media and search engine optimization metadata
+- **Keywords**: Internal search optimization terms
+
+## Interactive API Playground
+
+When using the `openapi` configuration, this page would display an interactive API playground allowing users to:
+
+- View endpoint details
+- Test API calls directly from the documentation
+- See request/response examples
+- Explore authentication methods
+
+## Content Structure
+
+This is regular markdown content that follows the frontmatter configuration. You can include:
+
+- Code blocks
+- Images
+- Tables
+- Lists
+- And all standard markdown elements
+
+```javascript
+// Example code block
+const apiResponse = await fetch('/api/v1/users');
+const users = await apiResponse.json();
+console.log(users);
+```
+
+## Best Practices
+
+1. **Use descriptive titles** that clearly indicate the page content
+2. **Keep sidebar titles short** for better navigation experience
+3. **Choose appropriate icons** that represent the content
+4. **Select the right page mode** based on your content needs
+5. **Add relevant keywords** to improve discoverability
+6. **Include SEO metadata** for better social sharing
+
+---
