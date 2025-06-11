@@ -36,10 +36,10 @@
               {
                 "group": "Manage facts",
                 "pages": [
+                  "core-concepts/facts/overview",
                   {
                     "group": "Centralize in Oso Cloud",
                     "pages": [
-                      "core-concepts/facts/overview",
                       "core-concepts/facts/sync",
                       "core-concepts/facts/export",
                       "core-concepts/facts/migrate"
@@ -139,11 +139,6 @@
     "global": {
       "anchors": [
         {
-          "anchor": "OsoHQ",
-          "href": "https://osohq.com",
-          "icon": "arrow-left"
-        },
-        {
           "anchor": "Blog",
           "href": "https://osohq.com/blog",
           "icon": "newspaper"
@@ -152,6 +147,11 @@
           "anchor": "Slack",
           "href": "https://join-slack.osohq.com/?_gl=1*1p3trmq*_gcl_au*MTQ1Njk1NTkwNC4xNzQ4NTYzMjYy",
           "icon": "slack"
+        },
+        {
+          "anchor": "OsoHQ",
+          "href": "https://osohq.com",
+          "icon": "arrow-left"
         }
       ]
     }
