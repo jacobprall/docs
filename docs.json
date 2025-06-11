@@ -62,10 +62,10 @@
           {
             "group": "Develop and Deploy",
             "pages": [
-              "Local Development",
+              "Local development",
               "Testing",
               "Integration",
-              "Deployment",
+              "Deployment models",
               "CI + CD",
               "Troubleshooting"
             ]
