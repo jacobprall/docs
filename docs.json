@@ -21,7 +21,7 @@
             ]
           },
           {
-            "group": "Using Oso Cloud",
+            "group": "Core Concepts",
             "pages": [
               {
                 "group": "Policies",
@@ -62,12 +62,12 @@
           {
             "group": "Develop and Deploy",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "Local Development",
+              "Testing",
+              "Integration",
+              "Deployment",
+              "CI + CD",
+              "Troubleshooting"
             ]
           }
         ]
