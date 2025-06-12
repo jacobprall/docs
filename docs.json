@@ -117,6 +117,50 @@
               "api-reference/polar/tests",
               "api-reference/polar/extends"
             ]
+          },
+          {
+            "group": "Oso Cloud API",
+            "pages": [
+              {
+                "group": "Policies",
+                "pages": [
+                  "api-reference/cloud-api/policy/get-policy",
+                  "api-reference/cloud-api/policy/get-policy_metadata",
+                  "api-reference/cloud-api/policy/post-policy"
+                ]
+              },
+              {
+                "group": "Facts",
+                "pages": [
+                  "api-reference/cloud-api/centralized-authorization-data/post-facts",
+                  "api-reference/cloud-api/centralized-authorization-data/post-batch",
+                  "api-reference/cloud-api/centralized-authorization-data/post-bulk",
+                  "api-reference/cloud-api/centralized-authorization-data/post-bulk_load",
+                  "api-reference/cloud-api/centralized-authorization-data/post-bulk_delete",
+                  "api-reference/cloud-api/centralized-authorization-data/post-clear_data",
+                  "api-reference/cloud-api/centralized-authorization-data/delete-facts"                ]
+              },
+              {
+                "group": "Authorization Check",
+                "pages": [
+                  "api-reference/cloud-api/check-api/post-actions",
+                  "api-reference/cloud-api/check-api/post-authorize_resources",
+                  "api-reference/cloud-api/check-api/post-authorize",
+                  "api-reference/cloud-api/check-api/post-evaluate_query",
+                  "api-reference/cloud-api/check-api/post-list",
+                  "api-reference/cloud-api/check-api/post-query"
+                ]
+              },
+              {
+                "group": "Local Authorization Check",
+                "pages": [
+                  "api-reference/cloud-api/local-check-api/post-actions_query",
+                  "api-reference/cloud-api/local-check-api/post-authorize_query",
+                  "api-reference/cloud-api/local-check-api/post-evaluate_query_local",
+                  "api-reference/cloud-api/local-check-api/post-list_query"
+                ]
+              }
+            ]
           }
         ]
       }
@@ -167,5 +211,19 @@
       "github": "https://github.com/mintlify",
       "linkedin": "https://linkedin.com/company/mintlify"
     }
-  }
+  },
+  "api": {
+    "playground": {
+      "display": "interactive"
+    },
+    "examples": {
+      "languages": ["curl", "python", "javascript"],
+      "defaults": "required"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.osohq.com/api"
+    }
+  ]
 }

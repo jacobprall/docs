@@ -1,0 +1,1233 @@
+openapi: 3.1.0
+info:
+  title: Oso Cloud HTTP API
+  version: 0.1.0
+  description: "<p>Oso Cloud exposes an HTTP API that you can use to make queries
+    directly, without using one of the clients.</p><p>For endpoints that require
+    authentication, pass your API key as an HTTP Bearer Auth payload.</p><p>For
+    example, using curl: <code>curl -H &quot;Authorization: Bearer
+    $OSO_AUTH&quot; https://cloud.osohq.com/api/</code></p>"
+servers:
+  - url: https://api.osohq.com/api/
+paths:
+  /policy:
+    get:
+      tags:
+        - Policy
+      description: Gets the currently active policy in Oso Cloud. The policy is
+        expressed as a string containing
+        [Polar](https://www.osohq.com/docs/modeling-in-polar/reference) code.
+      operationId: get_policy
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: integer
+            format: int64
+            nullable: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetPolicyResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      security:
+        - ApiKey: []
+    post:
+      tags:
+        - Policy
+      description: Updates the policy in Oso Cloud. The policy should be represented
+        as a string containing
+        [Polar](https://www.osohq.com/docs/modeling-in-polar/reference) code.
+      operationId: post_policy
+      parameters:
+        - name: force
+          in: query
+          required: true
+          schema:
+            type: boolean
+        - name: show_suggestions
+          in: query
+          required: true
+          schema:
+            type: boolean
+        - name: fail_fast
+          in: query
+          required: true
+          schema:
+            type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Policy"
+        required: true
+      responses:
+        "200":
+          description: The policy was updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResult"
+        "202":
+          description: The policy was not updated because it is unchanged.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SavePolicyError"
+      security:
+        - ApiKey: []
+  /policy_metadata:
+    get:
+      tags:
+        - Policy
+      description: Returns metadata about the currently active policy.
+      operationId: get_policy_metadata
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: integer
+            format: int64
+            nullable: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetPolicyMetadataResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      security:
+        - ApiKey: []
+  /facts:
+    post:
+      tags:
+        - Centralized Authorization Data
+      description: |-
+        Adds a new fact.
+
+        DEPRECATED: Prefer `POST /batch` with payload `[{"inserts": [<fact>]}]`.
+      operationId: post_facts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Fact"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Fact"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      deprecated: true
+      security:
+        - ApiKey: []
+    delete:
+      tags:
+        - Centralized Authorization Data
+      description: |-
+        Deletes a fact. Does not throw an error when the fact is not found.
+
+        DEPRECATED: Prefer `POST /batch` with payload `[{"deletes": [<fact>]}]`.
+      operationId: delete_facts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Fact"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      deprecated: true
+      security:
+        - ApiKey: []
+  /bulk_load:
+    post:
+      tags:
+        - Centralized Authorization Data
+      description: >-
+        Adds many facts at once.
+
+
+        DEPRECATED: Prefer `POST /batch` with payload `[{"inserts":
+        <bulk_data>}]`.
+      operationId: post_bulk_load
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Fact"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      deprecated: true
+      security:
+        - ApiKey: []
+  /bulk_delete:
+    post:
+      tags:
+        - Centralized Authorization Data
+      description: >-
+        Delete many facts in a single transaction.
+
+
+        DEPRECATED: Prefer `POST /batch` with payload `[{"deletes":
+        <bulk_data>}]`.
+      operationId: post_bulk_delete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Fact"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      deprecated: true
+      security:
+        - ApiKey: []
+  /bulk:
+    post:
+      tags:
+        - Centralized Authorization Data
+      description: >-
+        Deletes and adds many facts in one atomic transaction. The deletions are
+        performed before the adds. `null` can be used as a wildcard in facts in
+        delete. Does not throw an error when the facts to delete are not found.
+
+
+        DEPRECATED: Prefer `POST /batch` with payload `[{"deletes":
+        <bulk.delete>}, {"inserts": <bulk.tell>}]`.
+      operationId: post_bulk
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Bulk"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      deprecated: true
+      security:
+        - ApiKey: []
+  /batch:
+    post:
+      tags:
+        - Centralized Authorization Data
+      description: "Deletes and adds many facts in one atomic batch. Facts are
+        inserted and deleted in-order (ie: `insert`ed facts may be `delete`d in
+        the same transaction). `null` can be used as a wildcard in deleted
+        facts. Does not throw an error when the facts to delete are not found."
+      operationId: post_batch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/FactChangeset"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      security:
+        - ApiKey: []
+  /authorize:
+    post:
+      tags:
+        - Check API
+      description: Determines whether or not an actor can take an action on a
+        resource, based on a combination of authorization data and policy logic.
+      operationId: post_authorize
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthorizeQuery"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthorizeResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      security:
+        - ApiKey: []
+  /authorize_resources:
+    post:
+      tags:
+        - Check API
+      description: Returns a subset of resources on which an actor can perform a
+        particular action. Ordering and duplicates, if any exist, are preserved.
+      operationId: post_authorize_resources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthorizeResourcesQuery"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthorizeResourcesResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      security:
+        - ApiKey: []
+  /list:
+    post:
+      tags:
+        - Check API
+      description: Fetches a list of resource IDs on which an actor can perform a
+        particular action.
+      operationId: post_list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ListQuery"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      security:
+        - ApiKey: []
+  /actions:
+    post:
+      tags:
+        - Check API
+      description: Fetches a list of actions which an actor can perform on a
+        particular resource.
+      operationId: post_actions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ActionsQuery"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActionsResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      security:
+        - ApiKey: []
+  /query:
+    post:
+      tags:
+        - Check API
+      description: >-
+        Query v1: query for any predicate and any combination of concrete and
+        wildcard arguments.
+
+
+        Unlike `GET /facts`, which only lists facts you've added to Oso Cloud,
+        you can use `POST /query` to list derived information about any rule in
+        your policy.
+      operationId: post_query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QueryDeprecated"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueryResultDeprecated"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      deprecated: true
+      security:
+        - ApiKey: []
+  /evaluate_query:
+    post:
+      tags:
+        - Check API
+      description: >-
+        Query v2: query for any expression.
+
+
+        Unlike `GET /facts`, which only lists facts you've added to Oso Cloud,
+        you can use `POST /evaluate_query` to list derived information about any
+        rule in your policy.
+      operationId: post_evaluate_query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Query"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueryResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      security:
+        - ApiKey: []
+  /clear_data:
+    post:
+      tags:
+        - Centralized Authorization Data
+      operationId: clear_data
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      security:
+        - ApiKey: []
+  /actions_query:
+    post:
+      tags:
+        - Local Check API
+      operationId: post_actions_query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LocalActionsQuery"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LocalActionsResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      security:
+        - ApiKey: []
+  /authorize_query:
+    post:
+      tags:
+        - Local Check API
+      description: Fetches a query that can be run against your database to determine
+        whether an actor can perform an action on a resource.
+      operationId: post_authorize_query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LocalAuthQuery"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LocalAuthResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      security:
+        - ApiKey: []
+  /list_query:
+    post:
+      tags:
+        - Local Check API
+      description: Fetches a filter that can be applied to a database query to return
+        just the resources on which an actor can perform an action.
+      operationId: post_list_query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LocalListQuery"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LocalListResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      security:
+        - ApiKey: []
+  /evaluate_query_local:
+    post:
+      tags:
+        - Local Check API
+      description: Fetches a SQL query that can be run against your database to answer
+        arbitrary questions about authorization.
+      operationId: post_evaluate_query_local
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LocalQuery"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LocalQueryResult"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+      security:
+        - ApiKey: []
+components:
+  schemas:
+    ApiResult:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+    SavePolicyError:
+      oneOf:
+        - type: object
+          required:
+            - error_type
+            - message
+          properties:
+            error_type:
+              type: string
+              enum:
+                - Generic
+            message:
+              type: string
+        - type: object
+          required:
+            - error_type
+            - errors
+            - message
+          properties:
+            error_type:
+              type: string
+              enum:
+                - Validation
+            message:
+              type: string
+            errors:
+              type: array
+              items:
+                $ref: "#/components/schemas/PolicyError"
+        - type: object
+          required:
+            - error_type
+            - message
+            - test_results
+          properties:
+            error_type:
+              type: string
+              enum:
+                - TestsFailed
+            message:
+              type: string
+            test_results:
+              $ref: "#/components/schemas/PolicyTestResult"
+    PolicyError:
+      description: Error report for a failed Polar policy test, to be displayed to
+        user. Sent to `oso-cloud` CLI as JSON.
+      type: object
+      required:
+        - error_type
+        - message
+      properties:
+        error_type:
+          description: Type of error encountered.
+          allOf:
+            - $ref: "#/components/schemas/PolicyFailure"
+        message:
+          description: Error message to display to the user.
+          type: string
+    PolicyFailure:
+      description: All known failure modes for a submitted policy test. Encountering
+        any of these scenarios means the policy test has failed.
+      oneOf:
+        - description: Polar file failed validation.
+          type: string
+          enum:
+            - ValidationFailed
+        - description: An assertion failed in an executed test.
+          type: string
+          enum:
+            - AssertionFailed
+        - description: Server hit an unexpected error.
+          type: string
+          enum:
+            - ServerError
+    PolicyTestResult:
+      description: Result of a Policy test API request. Sent to `oso-cloud` CLI as JSON.
+      type: object
+      required:
+        - errors
+        - success
+        - tests
+      properties:
+        success:
+          description: Did the policy test succeed?
+          type: boolean
+        errors:
+          description: What errors did we encounter?
+          type: array
+          items:
+            $ref: "#/components/schemas/PolicyError"
+        tests:
+          description: What tests did we execute?
+          type: array
+          items:
+            $ref: "#/components/schemas/TestSummary"
+    TestSummary:
+      description: Results of executing a single test. Sent to `oso-cloud` CLI as JSON.
+      type: object
+      required:
+        - name
+        - passed
+        - total
+      properties:
+        name:
+          description: Name of test.
+          type: string
+        passed:
+          description: How many assertions passed?
+          type: integer
+          format: uint
+          minimum: 0
+        total:
+          description: How many assertions in total?
+          type: integer
+          format: uint
+          minimum: 0
+    Policy:
+      type: object
+      required:
+        - src
+      properties:
+        filename:
+          type: string
+          nullable: true
+        src:
+          type: string
+    GetPolicyResult:
+      type: object
+      properties:
+        policy:
+          allOf:
+            - $ref: "#/components/schemas/Policy"
+          nullable: true
+    ApiError:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+    GetPolicyMetadataResult:
+      type: object
+      required:
+        - metadata
+      properties:
+        metadata:
+          $ref: "#/components/schemas/PolicyMetadata"
+    PolicyMetadata:
+      type: object
+      required:
+        - resources
+      properties:
+        resources:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/ResourceBlockData"
+    ResourceBlockData:
+      type: object
+      required:
+        - permissions
+        - relations
+        - roles
+      properties:
+        roles:
+          type: array
+          items:
+            type: string
+        permissions:
+          type: array
+          items:
+            type: string
+        relations:
+          type: object
+          additionalProperties:
+            type: string
+    Fact:
+      description: "A pattern object for matching authorization-relevant data, ie: facts."
+      type: object
+      required:
+        - args
+        - predicate
+      properties:
+        predicate:
+          type: string
+        args:
+          type: array
+          items:
+            $ref: "#/components/schemas/Value"
+    Value:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        id:
+          type: string
+          nullable: true
+    Bulk:
+      type: object
+      required:
+        - delete
+        - tell
+      properties:
+        delete:
+          type: array
+          items:
+            $ref: "#/components/schemas/Fact"
+        tell:
+          type: array
+          items:
+            $ref: "#/components/schemas/Fact"
+    FactChangeset:
+      description: A grouped run of facts to insert or delete. Inserted facts must
+        contain concrete fact args, but deleted facts may contain wildcards.
+      anyOf:
+        - type: object
+          required:
+            - inserts
+          properties:
+            inserts:
+              type: array
+              items:
+                $ref: "#/components/schemas/Fact"
+        - type: object
+          required:
+            - deletes
+          properties:
+            deletes:
+              type: array
+              items:
+                $ref: "#/components/schemas/Fact"
+    AuthorizeResult:
+      type: object
+      required:
+        - allowed
+      properties:
+        allowed:
+          type: boolean
+    AuthorizeQuery:
+      type: object
+      required:
+        - action
+        - actor_id
+        - actor_type
+        - resource_id
+        - resource_type
+      properties:
+        actor_type:
+          type: string
+        actor_id:
+          type: string
+        action:
+          type: string
+        resource_type:
+          type: string
+        resource_id:
+          type: string
+        context_facts:
+          default: []
+          type: array
+          items:
+            $ref: "#/components/schemas/Fact"
+    AuthorizeResourcesResult:
+      type: object
+      required:
+        - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Value"
+    AuthorizeResourcesQuery:
+      type: object
+      required:
+        - action
+        - actor_id
+        - actor_type
+        - resources
+      properties:
+        actor_type:
+          type: string
+        actor_id:
+          type: string
+        action:
+          type: string
+        resources:
+          type: array
+          items:
+            $ref: "#/components/schemas/Value"
+        context_facts:
+          default: []
+          type: array
+          items:
+            $ref: "#/components/schemas/Fact"
+    ListResult:
+      type: object
+      required:
+        - results
+      properties:
+        results:
+          type: array
+          items:
+            type: string
+    ListQuery:
+      type: object
+      required:
+        - action
+        - actor_id
+        - actor_type
+        - resource_type
+      properties:
+        actor_type:
+          type: string
+        actor_id:
+          type: string
+        action:
+          type: string
+        resource_type:
+          type: string
+        context_facts:
+          default: []
+          type: array
+          items:
+            $ref: "#/components/schemas/Fact"
+    ActionsResult:
+      type: object
+      required:
+        - results
+      properties:
+        results:
+          type: array
+          items:
+            type: string
+    ActionsQuery:
+      type: object
+      required:
+        - actor_id
+        - actor_type
+        - resource_id
+        - resource_type
+      properties:
+        actor_type:
+          type: string
+        actor_id:
+          type: string
+        resource_type:
+          type: string
+        resource_id:
+          type: string
+        context_facts:
+          default: []
+          type: array
+          items:
+            $ref: "#/components/schemas/Fact"
+    QueryResultDeprecated:
+      type: object
+      required:
+        - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Fact"
+    QueryDeprecated:
+      type: object
+      required:
+        - fact
+      properties:
+        fact:
+          $ref: "#/components/schemas/Fact"
+        context_facts:
+          default: []
+          type: array
+          items:
+            $ref: "#/components/schemas/Fact"
+    QueryResult:
+      type: object
+      required:
+        - results
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
+              nullable: true
+    Query:
+      description: A generic query comprising 1+ predicates conjuncted together.
+      type: object
+      required:
+        - calls
+        - constraints
+        - context_facts
+        - predicate
+      properties:
+        predicate:
+          description: >-
+            Predicate name and variable names.
+
+
+            INVARIANT: all variable names must exist in `constraints`. This
+            ensures that all variables at least have a type.
+          type: array
+          items:
+            - type: string
+            - type: array
+              items:
+                type: string
+          maxItems: 2
+          minItems: 2
+        calls:
+          description: >-
+            Predicate name and variable names.
+
+
+            INVARIANT: all variable names must exist in `constraints`. This
+            ensures that all variables at least have a type.
+          type: array
+          items:
+            type: array
+            items:
+              - type: string
+              - type: array
+                items:
+                  type: string
+            maxItems: 2
+            minItems: 2
+        constraints:
+          description: Map of variable names to their type and value(s). Every variable is
+            at least typed and may also be constrained to a set of values.
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/Constraint"
+        context_facts:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConcreteFact"
+    Constraint:
+      description: Constraints on a variable. All variables must have a type, and they
+        may also be constrained to a set of values.
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          description: The type of the variable.
+          type: string
+        ids:
+          description: The possible values of the variable. `None` means the variable can
+            be any value. `Some(["foo"])` means the variable must be exactly
+            `"foo"`. `Some(["foo", "bar"])` means the variable can be either
+            `"foo"` or `"bar"`. The latter is how we represent `In` expressions
+            in the new Query API.
+          type: array
+          items:
+            type: string
+          nullable: true
+    ConcreteFact:
+      description: >-
+        A specific piece of authorization-relevant data, ie: a fact.
+
+
+        `ConcreteFact`s are suitable for storing in the database, since they
+        represent the information in a specific, fully-qualified fact. To
+        represent the set of facts matching a pattern instead, see [`Fact`].
+      type: object
+      required:
+        - args
+        - predicate
+      properties:
+        predicate:
+          type: string
+        args:
+          type: array
+          items:
+            $ref: "#/components/schemas/TypedId"
+    TypedId:
+      type: object
+      required:
+        - id
+        - type
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+    LocalActionsResult:
+      type: object
+      required:
+        - sql
+      properties:
+        sql:
+          type: string
+    LocalActionsQuery:
+      type: object
+      required:
+        - data_bindings
+        - query
+      properties:
+        query:
+          $ref: "#/components/schemas/ActionsQuery"
+        data_bindings:
+          type: string
+    LocalAuthResult:
+      type: object
+      required:
+        - sql
+      properties:
+        sql:
+          type: string
+    LocalAuthQuery:
+      type: object
+      required:
+        - data_bindings
+        - query
+      properties:
+        query:
+          $ref: "#/components/schemas/AuthorizeQuery"
+        data_bindings:
+          type: string
+    LocalListResult:
+      type: object
+      required:
+        - sql
+      properties:
+        sql:
+          type: string
+    LocalListQuery:
+      type: object
+      required:
+        - column
+        - data_bindings
+        - query
+      properties:
+        query:
+          $ref: "#/components/schemas/ListQuery"
+        column:
+          type: string
+        data_bindings:
+          type: string
+    LocalQueryResult:
+      type: object
+      required:
+        - sql
+      properties:
+        sql:
+          type: string
+    LocalQuery:
+      type: object
+      required:
+        - data_bindings
+        - mode
+        - query
+      properties:
+        query:
+          $ref: "#/components/schemas/Query"
+        data_bindings:
+          type: string
+        mode:
+          $ref: "#/components/schemas/LocalQueryMode"
+    LocalQueryMode:
+      oneOf:
+        - type: object
+          required:
+            - mode
+            - query_vars_to_output_column_names
+          properties:
+            mode:
+              type: string
+              enum:
+                - select
+            query_vars_to_output_column_names:
+              type: object
+              additionalProperties:
+                type: string
+        - type: object
+          required:
+            - mode
+            - output_column_name
+            - query_var
+          properties:
+            mode:
+              type: string
+              enum:
+                - filter
+            query_var:
+              type: string
+            output_column_name:
+              type: string
+  securitySchemes:
+    ApiKey:
+      description: Requires an API key to access.
+      type: http
+      scheme: bearer
+      bearerFormat: Bearer e_0123_123_token0123
