@@ -1,0 +1,39 @@
+---
+title: The Polar Lanugage in Oso Cloud
+sidebarTitle: Background
+---
+Polar is a logic programming language developed to express and evaluate authorization logic. 
+
+In a language like SQL, you write queries that specify the data you want the runtime engine to insert, update, or retrieve from storage. In a logic programming language like Polar, you ask questions that you want the runtime engine to answer using rules and facts.
+
+**Rules** are conditional statements (if-then) that define relationships between actors, actions, and resources. For example, "users with the admin role can edit documents" might be a rule.
+
+**Facts** define the data that rules operate on. For example, "user_1 is an admin" might be a fact.
+
+To express this in Polar, we would write:
+
+```
+# fact:
+has_role("user_1", "admin")
+
+# rule: 
+has_permission(actor: User, "edit", document: Document) if
+  has_role(actor, "admin")
+```
+
+When you use Oso Cloud's `authorize` API, Polar's inference engine uses formal logic to evaluate the authorization question, given your rules and facts.
+
+For example, your application may need to know `can user_1 edit document_1?`, or `what documents can user_1 edit?`.
+
+```javascript
+// can user_1 edit document_1?
+const user = { id: "user_1", type: "User" }
+const document = { id: "document_1", type: "Document" }
+const authorized = await oso.authorize(user, "edit", document)
+if (!authorized) {
+    throw new Error("Action is not allowed");
+}
+
+// ...
+```
+

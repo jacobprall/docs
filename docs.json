@@ -108,22 +108,15 @@
           {
             "group": "Polar",
             "pages": [
-              "Foundations",
-              "Types",
-              "Rules and facts",
-              "Operators",
-              "Constants",
-              "Resource blocks",
-              "Tests",
-              "Extends"
+              "api-reference/polar/background",
+              "api-reference/polar/types",
+              "api-reference/polar/rules-and-facts",
+              "api-reference/polar/operators",
+              "api-reference/polar/constants",
+              "api-reference/polar/resource-blocks",
+              "api-reference/polar/tests",
+              "api-reference/polar/extends"
             ]
-          },
-          {
-            "group": "Client SDKs",
-            "openapi":{ 
-              "source": "./api-reference/openapi.json",
-              "directory": "api-reference"
-            }
           }
         ]
       }
