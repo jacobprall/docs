@@ -2,8 +2,16 @@
 title: Oso Cloud Documentation
 ---
 
-Oso decouples authorization from your application, so you can build fine-grained access control independently of your business logic. Model RBAC, ReBAC, ABAC or any other logic using Polar, our purpose-built language for authorization. Instead of writing ad-hoc permissions checks, you call our service to determine who can do what. Think feature flags, but for access control.
 
+
+Oso Cloud is a centralized authorization service built on Polar, our logic programming language designed for expressing permission systems,
+and SQLite, the world's most battle-tested database engine.
+
+Polar can express any model, including [RBAC](/core-concepts/policies/rbac), [ReBAC](/core-concepts/policies/rebac), [ABAC](/core-concepts/policies/abac), [fine-grained authorization](/core-concepts/policies/fga), [organizational hierarchies](/core-concepts/policies/organizational-hierarchies), and more.
+
+When you need to answer an authorization question, you call our APIs via HTTP or Client SDK. Oso Cloud evaluates the request against your authorization logic and data, returning a boolean, list, or logic to execute against your database.
+
+## Getting Started
 
 <CardGroup cols={2}>
   <Card
@@ -36,37 +44,3 @@ Oso decouples authorization from your application, so you can build fine-grained
   </Card>
 </CardGroup>
 
-## Authorization Models
-
-Learn how to use Polar to define common authorization models.
-
-<CardGroup cols={2}>
-  <Card
-    title="RBAC"
-    icon="palette"
-    href="https://mintlify.com/docs/settings/global"
-  >
-    Define permissions based on roles
-  </Card>
-  <Card
-    title="ReBAC"
-    icon="code"
-    href="https://mintlify.com/docs/api-playground/openapi"
-  >
-    Define permissions based on relationships between users and resources
-  </Card>
-  <Card
-    title="ABAC"
-    icon="screwdriver-wrench"
-    href="https://mintlify.com/docs/content/components/accordions"
-  >
-    Define permissions based on attributes of users and resources
-  </Card>
-  <Card
-    title="FGA"
-    icon="stars"
-    href="https://mintlify.com/customers"
-  >
-    Define permissions on fine-grained attributes of users and resources
-  </Card>
-</CardGroup>

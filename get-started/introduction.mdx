@@ -2,44 +2,40 @@
 title: An Introduction to Oso Cloud
 sidebarTitle: "Introduction"
 ---
-
-## What is Oso Cloud?
-Oso Cloud is an authorization-as-a-service designed for microservices and complex applications. It centralizes your authorization logic and exposes APIs for answering authorization questions.
+Oso Cloud is an authorization-as-a-service. It centralizes your authorization logic and exposes APIs for answering authorization questions.
 
 ## How it works
 
-1. **Define** authorization policies in [Polar](#), our DSL for expressing permissions logic
-2. **Store** policies and authorization data in Oso Cloud
-3. **Make API calls** from your app when you need to answer authorization questions, like `can user X view Z resource?` or `what resources can user X edit?`
+1. **Define** authorization policies in [Polar](/core-concepts/policies/overview), our DSL for expressing permissions logic
+2. **Store** policies and authorization data, called [facts](/core-concepts/facts/overview), in Oso Cloud
+3. **Make API calls** with our [client SDKs](/api-reference/cloud-api/policy/get-policy) from your app when you need to answer authorization questions, like `can user X view Z resource?` or `what resources can user X edit?`
 
 ## Writing policies in Polar
 Oso Cloud's policy language, Polar, is designed for expressing arbitrarily complex and granular application authorization logic. 
 
-Polar can express any model, including [RBAC](#), [ReBAC](#), [ABAC](#), [fine-grained authorization](#), [organizational hierarchies](#), and more.
+Polar can express any model, including [RBAC](/core-concepts/policies/rbac), [ReBAC](/core-concepts/policies/rebac), [ABAC](/core-concepts/policies/abac), [fine-grained authorization](/core-concepts/policies/fga), [organizational hierarchies](/core-concepts/policies/organizational-hierarchies), and more.
 
 ## Data management
-Oso Cloud provides a prescriptive data model for authorization-relevant data, called **facts**. 
+**Facts** are a prescriptive data model for authorization-relevant data.
 
 There are multiple ways to **provide facts to Oso Cloud**. Which one you choose depends on your use case and application architecture.
 
 <AccordionGroup>
-  <Accordion title='Centralize in Oso Cloud'>
-   Data that is exclusively or extensively used for authorization, like users, roles, and permissions are best stored in Oso Cloud as facts. Oso Cloud provides a robust mechanism for synchronizing data stores and detecting drift with [Oso Sync](#).
+  <Accordion title='Centralized in Oso Cloud'>
+   Data that is exclusively or extensively used for authorization, like users, roles, and permissions are best [stored in Oso Cloud](/core-concepts/facts/overview) as facts. Oso Cloud provides a robust mechanism for synchronizing data stores and detecting drift with [Oso Sync](/core-concepts/facts/sync).
   </Accordion>
 
-  <Accordion title="Finish evaluations with your local database">
-    Oso Cloud supports centralizing your data, but doesn't require it. [Local authorization](#) is our unique approach to minimizing data synchronization and data transfer. When you make a request to the Oso Cloud API, you receive back database logic that can be executed against your local data store to finish the authorization evaluation.
+  <Accordion title="Stored in your local database">
+    Oso Cloud supports centralizing your data, but doesn't require it. [Local authorization](/core-concepts/facts/local-authorization) is our unique approach to minimizing data synchronization and data transfer. When you make a request to the Oso Cloud API, you receive back database logic that can be executed against your local data store to finish the authorization evaluation.
   </Accordion>
 
-  <Accordion title="Provide data at request time">
-    Oso Cloud also supports providing data at request time, called [context facts](#). This is useful when you have data that is not used regularly for authorization, but is needed to evaluate the request.
+  <Accordion title="Provided at request time">
+    Oso Cloud also supports providing data at request time, called [context facts](/core-concepts/facts/context-facts). This is useful when you have data that is not used regularly for authorization, but is needed to evaluate the request.
   </Accordion>
 </AccordionGroup>
 
 
 ## Evaluating authorization requests
-Oso Cloud can return booleans, a list of resources, a list of permissions, or even database logic that can be used to complete an authorization decision.
+Oso Cloud can return [booleans](/api-reference/cloud-api/check-api/post-authorize), a [list of resources](/api-reference/cloud-api/check-api/post-authorized_resources), a [list of permissions](/api-reference/cloud-api/check-api/post-actions), or even [database logic](/api-reference/local-check-api/post-authorize_query) that can be used to complete an authorization decision.
 
-It all depends on your unique application requirements.
-
- 
+It all depends on your application requirements.

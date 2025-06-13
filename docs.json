@@ -168,11 +168,6 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Log in / Sign up",
-          "href": "https://ui.osohq.com/",
-          "icon": "user"
-        },
-        {
           "anchor": "Blog",
           "href": "https://osohq.com/blog",
           "icon": "newspaper"
@@ -181,6 +176,10 @@
           "anchor": "Slack",
           "href": "https://join-slack.osohq.com/?_gl=1*1p3trmq*_gcl_au*MTQ1Njk1NTkwNC4xNzQ4NTYzMjYy",
           "icon": "slack"
+        },
+        {
+          "anchor": "Authz Academy",
+          "href": "https://www.osohq.com/academy"
         }
       ]
     }
@@ -192,16 +191,19 @@
   "navbar": {
     "links": [
       {
-        "label": "Status Page",
-        "href": "https://oso.statuspage.io/"
-      },
-      {
-        "label": "Authorization Academy",
-        "href": "https://www.osohq.com/academy"
+        "label": "Log in / Sign up",
+        "href": "https://ui.osohq.com/",
+        "icon": "user"
       },
       {
         "label": "Meet an Eng",
-        "href": "https://www.osohq.com/meet-oso"
+        "href": "https://www.osohq.com/meet-oso",
+        "icon": "video"
+      },
+      {
+        "label": "Status Page",
+        "href": "https://oso.statuspage.io/",
+        "icon": "wifi"
       }
     ]
   },
