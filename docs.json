@@ -17,12 +17,7 @@
             "group": "Get Started",
             "pages": [
               "get-started/introduction",
-              "get-started/quickstart"
-            ]
-          },
-          {
-            "group": "Core Concepts",
-            "pages": [
+              "get-started/quickstart",
               {
                 "group": "Write policies",
                 "pages": [
@@ -57,7 +52,6 @@
                   "core-concepts/enforce/list-filtering"
                 ]
               }
-
             ]
           },
           {
