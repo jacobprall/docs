@@ -21,35 +21,35 @@
               {
                 "group": "Write policies",
                 "pages": [
-                  "core-concepts/policies/overview",
-                  "core-concepts/policies/rbac",
-                  "core-concepts/policies/rebac",
-                  "core-concepts/policies/abac",
-                  "core-concepts/policies/fga"
+                  "get-started/policies/overview",
+                  "get-started/policies/rbac",
+                  "get-started/policies/rebac",
+                  "get-started/policies/abac",
+                  "get-started/policies/fga"
                 ]
               },
               {
                 "group": "Manage facts",
                 "pages": [
-                  "core-concepts/facts/overview",
+                  "get-started/facts/overview",
                   {
                     "group": "Centralize in Oso Cloud",
                     "pages": [
-                      "core-concepts/facts/sync",
-                      "core-concepts/facts/export",
-                      "core-concepts/facts/migrate"
+                      "get-started/facts/sync",
+                      "get-started/facts/export",
+                      "get-started/facts/migrate"
                     ]
                   },
-                  "core-concepts/facts/local-authorization",
-                  "core-concepts/facts/context-facts"
+                  "get-started/facts/local-authorization",
+                  "get-started/facts/context-facts"
                 ]
               },
               {
                 "group": "Enforce permissions",
                 "pages": [
-                  "core-concepts/enforce/enforcement-strategies",
-                  "core-concepts/enforce/query-facts",
-                  "core-concepts/enforce/list-filtering"
+                  "get-started/enforce/enforcement-strategies",
+                  "get-started/enforce/query-facts",
+                  "get-started/enforce/list-filtering"
                 ]
               }
             ]
